@@ -11,7 +11,7 @@ SIGNUP_POST = {
             'description': '가입 완료'
         },
         '205': {
-            'description': '중복 id 또는 email'
+            'description': '중복 id'
         }
     }
 }
