@@ -16,7 +16,7 @@ SIGNUP_POST = {
     }
 }
 
-AUTH_POST = {
+LOGIN_POST = {
     'tags': ['Account'],
     'description': '로그인',
     'parameters': [
