@@ -67,15 +67,28 @@ class PostView(Resource):
     @jwt_required
     def patch(self, postId):
         user: UserModel = UserModel.objects(id=get_jwt_identity()).first()
-
-        payload = request.json
         post = PostModel.objects(_id=postId).first()
 
-        if not post: abort(204)
-        if user != post.author: abort(403)
+        if not post:
+            abort(204)
+        if user != post.author:
+            abort(403)
 
+        payload = request.json
         post.title = payload['title']
         post.content = payload['content']
         post.save()
+
+        return Response('', 201)
+
+    @swag_from(POST_DELETE)
+    @jwt_required
+    def delete(self, postId):
+        user: UserModel = UserModel.objects(id=get_jwt_identity()).first()
+        post: PostModel = PostModel.objects(_id=postId).first()
+
+        if not post: abort(204)
+        if user != post.author: abort(403)
+        post.delete()
 
         return Response('', 201)
