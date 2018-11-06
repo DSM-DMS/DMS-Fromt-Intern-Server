@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flasgger import Swagger
 from flask_jwt_extended import JWTManager
 
+import os
 from mongoengine import connect
 
 from config import Config
@@ -17,7 +18,7 @@ def create_app():
     JWTManager(app)
     CORS(app)
 
-    connect('dms-intern')
+    connect('dms-intern', username=os.getenv('MONGO_ID'), password=os.getenv('MONGO_PW'))
 
     Swagger(app, template=app.config['SWAGGER_TEMPLATE'])
 
