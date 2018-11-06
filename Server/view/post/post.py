@@ -33,7 +33,7 @@ class PostView(Resource):
 
     @swag_from(POST_GET)
     def get(self, postId):
-        post: PostModel = PostModel.objects(_id=ObjectId(postId)).first()
+        post = PostModel.objects(_id=ObjectId(postId)).first()
 
         if not post:
             abort(204)
@@ -57,7 +57,7 @@ class PostView(Resource):
     @swag_from(POST_POST)
     @jwt_required
     def post(self):
-        user: UserModel = UserModel.objects(id=get_jwt_identity()).first()
+        user = UserModel.objects(id=get_jwt_identity()).first()
 
         payload = request.json
         PostModel(user, payload['title'], payload['content']).save()
@@ -67,7 +67,7 @@ class PostView(Resource):
     @swag_from(POST_PATCH)
     @jwt_required
     def patch(self, postId):
-        user: UserModel = UserModel.objects(id=get_jwt_identity()).first()
+        user = UserModel.objects(id=get_jwt_identity()).first()
         post = PostModel.objects(_id=ObjectId(postId)).first()
 
         if not post:
@@ -85,8 +85,8 @@ class PostView(Resource):
     @swag_from(POST_DELETE)
     @jwt_required
     def delete(self, postId):
-        user: UserModel = UserModel.objects(id=get_jwt_identity()).first()
-        post: PostModel = PostModel.objects(_id=ObjectId(postId)).first()
+        user = UserModel.objects(id=get_jwt_identity()).first()
+        post = PostModel.objects(_id=ObjectId(postId)).first()
 
         if not post: abort(204)
         if user != post.author: abort(403)
