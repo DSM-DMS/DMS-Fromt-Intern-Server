@@ -1,11 +1,12 @@
 from flasgger import swag_from
-from flask import request, jsonify, abort
+from flask import request, jsonify, abort, Response
 from flask_restful import Resource
 from flask_jwt_extended import get_jwt_identity
 
 
 from docs.post import *
 from model.post import PostModel
+from model.user import UserModel
 from model.comment import CommentModel
 
 
@@ -50,3 +51,12 @@ class PostView(Resource):
         }
 
         return jsonify(post)
+
+    @swag_from(POST_POST)
+    def post(self):
+        user: UserModel = UserModel.objects(id=get_jwt_identity()).first()
+
+        payload = request.json
+        PostModel(user, payload['title'], payload['content']).save()
+
+        return Response('', 201)
