@@ -6,7 +6,7 @@ COMMENT_POST = {
     'description': '댓글 작성',
     'parameters': [
         jwt_header,
-        parameter('postId', '게시글 아이디', in_='uri'),
+        parameter('id', '게시글 아이디', in_='uri'),
         parameter('content', '댓글 내용')
     ],
 
@@ -28,7 +28,7 @@ COMMENT_PATCH = {
     'description': '댓글 수정',
     'parameters': [
         jwt_header,
-        parameter('commentId', '댓글 아이디', in_='uri'),
+        parameter('id', '댓글 아이디', in_='uri'),
         parameter('content', '댓글 내용')
     ],
 
@@ -40,7 +40,7 @@ COMMENT_PATCH = {
             'description': '댓글 없음'
         },
         '403': {
-            'description': '권한 없음'
+            'description': '권한 없음, 작성자 != 요청한 사람'
         }
     }
 }
@@ -50,7 +50,7 @@ COMMENT_DELETE = {
     'description': '댓글 삭제',
     'parameters': [
         jwt_header,
-        parameter('commentId', '댓글 아이디', in_='uri')
+        parameter('id', '댓글 아이디', in_='uri')
     ],
 
     'responses': {
@@ -61,7 +61,7 @@ COMMENT_DELETE = {
             'description': '댓글 없음'
         },
         '403': {
-            'description': '권한 없음'
+            'description': '권한 없음, 작성자 != 요청한 사람'
         }
     }
 }

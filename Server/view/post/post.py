@@ -3,6 +3,7 @@ from flask import request, jsonify, abort, Response
 from flask_restful import Resource
 from flask_jwt_extended import get_jwt_identity, jwt_required
 
+from bson import ObjectId
 
 from docs.post import *
 from model.post import PostModel
@@ -32,7 +33,7 @@ class PostView(Resource):
 
     @swag_from(POST_GET)
     def get(self, postId):
-        post: PostModel = PostModel.objects(_id=postId).first()
+        post: PostModel = PostModel.objects(_id=ObjectId(postId)).first()
 
         if not post:
             abort(204)
@@ -67,7 +68,7 @@ class PostView(Resource):
     @jwt_required
     def patch(self, postId):
         user: UserModel = UserModel.objects(id=get_jwt_identity()).first()
-        post = PostModel.objects(_id=postId).first()
+        post = PostModel.objects(_id=ObjectId(postId)).first()
 
         if not post:
             abort(204)
@@ -85,7 +86,7 @@ class PostView(Resource):
     @jwt_required
     def delete(self, postId):
         user: UserModel = UserModel.objects(id=get_jwt_identity()).first()
-        post: PostModel = PostModel.objects(_id=postId).first()
+        post: PostModel = PostModel.objects(_id=ObjectId(postId)).first()
 
         if not post: abort(204)
         if user != post.author: abort(403)
