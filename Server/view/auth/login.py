@@ -9,7 +9,7 @@ from model.user import UserModel
 from docs.user import LOGIN_POST
 
 
-class Login(Resource):
+class LoginView(Resource):
 
     @swag_from(LOGIN_POST)
     def post(self):

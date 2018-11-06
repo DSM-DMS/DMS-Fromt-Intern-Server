@@ -6,7 +6,7 @@ from docs.user import SIGNUP_POST
 from model.user import UserModel
 
 
-class Signup(Resource):
+class SignupView(Resource):
 
     @swag_from(SIGNUP_POST)
     def post(self):

@@ -12,10 +12,12 @@ POST_LIST_GET = {
                 '': {
                     'posts': [
                         {
+                            'postId': '게시글 아이디',
                             'title': '제목',
                             'author': '작성자'
                         },
                         {
+                            'postId': '게시글 아이디1',
                             'title': '제목1',
                             'author': '작성자1'
                         }
@@ -50,10 +52,12 @@ POST_GET = {
                     'content': '내용',
                     'comments': [
                         {
+                            'commentId': '댓글 아이디',
                             'author': '댓글 작성자',
                             'content': '댓글 내용'
                         },
                         {
+                            'commentId': '댓글 아이디',
                             'author': '댓글 작성자1',
                             'content': '댓글 내용1'
                         }
