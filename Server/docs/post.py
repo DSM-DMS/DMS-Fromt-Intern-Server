@@ -112,7 +112,7 @@ POST_PATCH = {
             'description': '게시글 없음'
         },
         '403': {
-            'description': '권한 없음'
+            'description': '권한 없음, 작성자 != 요청한 사람'
         }
     }
 }
