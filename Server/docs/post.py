@@ -3,7 +3,7 @@ from docs import parameter, jwt_header
 POST_LIST_GET = {
     'tags': ['Post'],
     'description': '게시물 목록 조회',
-    'parameters': [jwt_header],
+    'parameters': [],
 
     'responses': {
         '200': {
@@ -37,7 +37,6 @@ POST_GET = {
     'tags': ['Post'],
     'description': '게시물 목록 조회',
     'parameters': [
-        jwt_header,
         parameter('postId', '게시글 아이디', in_='uri')
     ],
 
@@ -61,6 +60,70 @@ POST_GET = {
                     ]
                 }
             }
+        },
+        '204': {
+            'description': '게시글 없음'
+        },
+        '403': {
+            'description': '권한 없음'
+        }
+    }
+}
+
+
+POST_POST = {
+    'tags': ['Post'],
+    'description': '게시물 작성',
+    'parameters': [
+        jwt_header,
+        parameter('title', '게시글 제목'),
+        parameter('content', '게시글 내용')
+    ],
+
+    'responses': {
+        '201': {
+            'description': '게시글 작성 완료'
+        },
+        '403': {
+            'description': '권한 없음'
+        }
+    }
+}
+
+POST_PATCH = {
+    'tags': ['Post'],
+    'description': '게시물 수정',
+    'parameters': [
+        jwt_header,
+        parameter('postId', '게시글 아이디', in_='uri'),
+        parameter('title', '게시글 제목'),
+        parameter('content', '게시글 내용')
+    ],
+
+    'responses': {
+        '201': {
+            'description': '게시글 수정 완료'
+        },
+        '204': {
+            'description': '게시글 없음'
+        },
+        '403': {
+            'description': '권한 없음'
+        }
+    }
+}
+
+POST_DELETE = {
+    'tags': ['Post'],
+    'description': '게시물 삭제',
+    'parameters': [
+        jwt_header,
+        parameter('postId', '게시글 아이디', in_='uri')
+    ],
+
+    'responses': {
+        '201': {
+            'description': '삭제 성공'
         },
         '204': {
             'description': '게시글 없음'
