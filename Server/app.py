@@ -18,7 +18,7 @@ def create_app():
     JWTManager(app)
     CORS(app)
 
-    connect('dms-intern', username=os.getenv('MONGO_ID', None), password=os.getenv('MONGO_PW', None))
+    connect('dms-intern')
 
     Swagger(app, template=app.config['SWAGGER_TEMPLATE'])
 

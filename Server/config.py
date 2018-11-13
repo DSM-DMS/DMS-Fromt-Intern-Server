@@ -14,7 +14,7 @@ class Config:
             'version': '1.0',
             'description': ''
         },
-        'host': 'dms.istruly.sexy:792',
+        'host': 'ec2.istruly.sexy:792',
         'basePath': '/',
     }
 

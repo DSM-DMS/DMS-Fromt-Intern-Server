@@ -11,6 +11,5 @@ class UserModel(Document):
     )
 
     pw = StringField(
-        required=True,
-        min_length=8
+        required=True
     )
