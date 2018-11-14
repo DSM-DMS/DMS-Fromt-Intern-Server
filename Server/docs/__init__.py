@@ -1,12 +1,3 @@
-jwt_header = {
-    'name': 'Authorization',
-    'description': 'JWT token',
-    'in': 'header',
-    'type': 'str',
-    'required': True
-}
-
-
 def parameter(name, description, in_='json', type='str', required=True):
     return {
         'name': name,
@@ -15,3 +6,6 @@ def parameter(name, description, in_='json', type='str', required=True):
         'type': type,
         'required': required
     }
+
+
+jwt_header = parameter('Authorization', 'JWT token (format: "Bearer 액세스 토큰")', 'header')
