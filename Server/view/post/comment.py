@@ -21,6 +21,10 @@ class CommentView(Resource):
         post = PostModel.objects(_id=id).first()
         payload = request.json
 
+        for key in ['content']:
+            if key not in payload:
+                abort(400)
+
         if not post:
             return Response('', 204)
 
@@ -34,6 +38,10 @@ class CommentView(Resource):
         user = UserModel.objects(id=get_jwt_identity()).first()
         comment = CommentModel.objects(_id=ObjectId(id)).first()
         payload = request.json
+
+        for key in ['content']:
+            if key not in payload:
+                abort(400)
 
         if not comment:
             return Response('', 204)
@@ -49,11 +57,11 @@ class CommentView(Resource):
     def delete(self, id):
         user = UserModel.objects(id=get_jwt_identity()).first()
         comment = CommentModel.objects(_id=ObjectId(id)).first()
-        payload = request.json
 
         if not comment:
             return Response('', 204)
-        if user != comment.author: abort(403)
+        if user != comment.author:
+            abort(403)
 
         comment.delete()
 

@@ -12,6 +12,9 @@ class SignupView(Resource):
     def post(self):
 
         payload = request.json
+        for key in ['id', 'password']:
+            if key not in payload:
+                abort(400)
 
         if UserModel.objects(id=payload['id']).first():
             return Response('', 204)

@@ -60,6 +60,11 @@ class PostView(Resource):
         user = UserModel.objects(id=get_jwt_identity()).first()
 
         payload = request.json
+
+        for key in ['title', 'content']:
+            if key not in payload:
+                abort(400)
+
         PostModel(user, payload['title'], payload['content']).save()
 
         return Response('', 201)
@@ -76,6 +81,11 @@ class PostView(Resource):
             abort(403)
 
         payload = request.json
+
+        for key in ['title', 'content']:
+            if key not in payload:
+                abort(400)
+
         post.title = payload['title']
         post.content = payload['content']
         post.save()

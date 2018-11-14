@@ -15,6 +15,10 @@ class LoginView(Resource):
     def post(self):
         payload = request.json
 
+        for key in ['id', 'password']:
+            if key not in payload:
+                abort(400)
+
         if UserModel.objects(id=payload['id'], pw=payload['password']).first():
             return jsonify({"accessTocken": create_access_token(identity=payload['id'], expires_delta=timedelta(days=1))})
 
