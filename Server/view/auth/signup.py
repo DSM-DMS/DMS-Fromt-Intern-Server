@@ -14,7 +14,7 @@ class SignupView(Resource):
         payload = request.json
 
         if UserModel.objects(id=payload['id']).first():
-            abort(205)
+            return Response('', 204)
 
         UserModel(id=payload['id'], pw=payload['password']).save()
         return Response('', 201)

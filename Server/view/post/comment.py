@@ -21,7 +21,8 @@ class CommentView(Resource):
         post = PostModel.objects(_id=id).first()
         payload = request.json
 
-        if not post: abort(204)
+        if not post:
+            return Response('', 204)
 
         CommentModel(post, user, payload['content']).save()
 
@@ -34,7 +35,8 @@ class CommentView(Resource):
         comment = CommentModel.objects(_id=ObjectId(id)).first()
         payload = request.json
 
-        if not comment: abort(204)
+        if not comment:
+            return Response('', 204)
         if user != comment.author: abort(403)
 
         comment.content = payload['content']
@@ -49,7 +51,8 @@ class CommentView(Resource):
         comment = CommentModel.objects(_id=ObjectId(id)).first()
         payload = request.json
 
-        if not comment: abort(204)
+        if not comment:
+            return Response('', 204)
         if user != comment.author: abort(403)
 
         comment.delete()

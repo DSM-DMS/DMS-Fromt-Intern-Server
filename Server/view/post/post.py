@@ -17,7 +17,7 @@ class PostListView(Resource):
     def get(self):
         posts = PostModel.objects()
         if not posts:
-            abort(204)
+            return Response('', 204)
 
         result = {
             'posts': [{
@@ -36,7 +36,7 @@ class PostView(Resource):
         post = PostModel.objects(_id=ObjectId(postId)).first()
 
         if not post:
-            abort(204)
+            return Response('', 204)
 
         result = {
             'postId': str(post.id()),
@@ -71,7 +71,7 @@ class PostView(Resource):
         post = PostModel.objects(_id=ObjectId(postId)).first()
 
         if not post:
-            abort(204)
+            return Response('', 204)
         if user != post.author:
             abort(403)
 
@@ -88,7 +88,8 @@ class PostView(Resource):
         user = UserModel.objects(id=get_jwt_identity()).first()
         post = PostModel.objects(_id=ObjectId(postId)).first()
 
-        if not post: abort(204)
+        if not post:
+            return Response('', 204)
         if user != post.author: abort(403)
         post.delete()
 
