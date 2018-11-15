@@ -80,6 +80,7 @@ POST_POST = {
     'description': '게시물 작성',
     'parameters': [
         jwt_header,
+        parameter('postId', '아무 문자', in_='uri'),
         parameter('title', '게시글 제목'),
         parameter('content', '게시글 내용')
     ],

@@ -56,7 +56,7 @@ class PostView(Resource):
 
     @swag_from(POST_POST)
     @jwt_required
-    def post(self):
+    def post(self, postId):
         user = UserModel.objects(id=get_jwt_identity()).first()
 
         payload = request.json
