@@ -21,7 +21,7 @@ class PostListView(Resource):
 
         result = {
             'posts': [{
-                'postId': str(post.id()),
+                'postId': post.postId,
                 'title': post.title,
                 'author': post.author.id
             } for post in posts]
@@ -33,19 +33,19 @@ class PostView(Resource):
 
     @swag_from(POST_GET)
     def get(self, postId):
-        post = PostModel.objects(_id=ObjectId(postId)).first()
+        post = PostModel.objects(postId=postId).first()
 
         if not post:
             return Response('', 204)
 
         result = {
-            'postId': str(post.id()),
+            'postId': post.postId,
             'author': post.author.id,
             'title': post.title,
             'content': post.content,
             'comments': [
                 {
-                    'commentId': str(comment.id()),
+                    'commentId': comment.commentId,
                     'author': comment.author.id,
                     'content': comment.content
                 } for comment in CommentModel.objects(post=post)
@@ -65,7 +65,7 @@ class PostView(Resource):
             if key not in payload:
                 abort(400)
 
-        PostModel(user, payload['title'], payload['content']).save()
+        PostModel(str(ObjectId()), user, payload['title'], payload['content']).save()
 
         return Response('', 201)
 
@@ -73,7 +73,7 @@ class PostView(Resource):
     @jwt_required
     def patch(self, postId):
         user = UserModel.objects(id=get_jwt_identity()).first()
-        post = PostModel.objects(_id=ObjectId(postId)).first()
+        post = PostModel.objects(postId=postId).first()
 
         if not post:
             return Response('', 204)
@@ -96,7 +96,7 @@ class PostView(Resource):
     @jwt_required
     def delete(self, postId):
         user = UserModel.objects(id=get_jwt_identity()).first()
-        post = PostModel.objects(_id=ObjectId(postId)).first()
+        post = PostModel.objects(postId=postId).first()
 
         if not post:
             return Response('', 204)

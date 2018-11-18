@@ -9,6 +9,10 @@ class CommentModel(Document):
         'collection': 'comment'
     }
 
+    commentId = StringField(
+        primary_key=True
+    )
+    
     post = ReferenceField(
         document_type=PostModel,
         required=True,

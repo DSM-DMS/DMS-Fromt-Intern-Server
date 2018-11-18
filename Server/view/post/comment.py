@@ -5,7 +5,6 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 
 from bson import ObjectId
 
-
 from docs.comment import *
 from model.post import PostModel
 from model.user import UserModel
@@ -18,7 +17,7 @@ class CommentView(Resource):
     @jwt_required
     def post(self, id):
         user = UserModel.objects(id=get_jwt_identity()).first()
-        post = PostModel.objects(_id=id).first()
+        post = PostModel.objects(postId=id).first()
         payload = request.json
 
         for key in ['content']:
@@ -36,7 +35,7 @@ class CommentView(Resource):
     @jwt_required
     def patch(self, id):
         user = UserModel.objects(id=get_jwt_identity()).first()
-        comment = CommentModel.objects(_id=ObjectId(id)).first()
+        comment = CommentModel.objects(commentId=id).first()
         payload = request.json
 
         for key in ['content']:
@@ -56,7 +55,7 @@ class CommentView(Resource):
     @jwt_required
     def delete(self, id):
         user = UserModel.objects(id=get_jwt_identity()).first()
-        comment = CommentModel.objects(_id=ObjectId(id)).first()
+        comment = CommentModel.objects(commentId=id).first()
 
         if not comment:
             return Response('', 204)

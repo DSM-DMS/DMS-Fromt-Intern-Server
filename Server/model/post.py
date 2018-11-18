@@ -8,6 +8,10 @@ class PostModel(Document):
         'collection': 'post'
     }
 
+    postId = StringField(
+        primary_key=True
+    )
+
     author = ReferenceField(
         document_type=UserModel,
         required=True,
