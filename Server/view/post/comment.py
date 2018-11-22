@@ -26,8 +26,8 @@ class CommentView(Resource):
 
         if not post:
             return Response('', 204)
-
-        CommentModel(post, user, payload['content']).save()
+        comment_id = str(ObjectId())
+        CommentModel(comment_id, post, user, payload['content']).save()
 
         return Response('', 201)
 
